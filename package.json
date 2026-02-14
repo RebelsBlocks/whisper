@@ -1,0 +1,26 @@
+{
+  "name": "whisper-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "npm run build && node --enable-source-maps --watch dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "npm run build && node dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^4.21.1",
+    "near-api-js": "^5.0.0",
+    "node-cron": "latest",
+    "openai": "^4.77.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node-cron": "latest",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

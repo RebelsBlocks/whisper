@@ -1,0 +1,19 @@
+# Whisper server (Fly.io)
+# After `fly launch`, Fly will regenerate parts of this file (app name, etc).
+
+app = "whisper-server"
+primary_region = 'iad'
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8787"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = true
+  min_machines_running = 1
+
