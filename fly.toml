@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for whisper-vcgesg on 2026-02-14T18:32:31Z
+# fly.toml app configuration file generated for whisper-vcgesg on 2026-02-14T19:40:54+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,14 +7,25 @@ app = 'whisper-vcgesg'
 primary_region = 'ams'
 
 [build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  PORT = "8787"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 8787
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+  [[http_service.checks]]
+    grace_period = "30s"
+    interval = "15s"
+    method = "GET"
+    path = "/health"
+    timeout = "5s"
 
 [[vm]]
   memory = '1gb'
