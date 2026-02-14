@@ -21,6 +21,13 @@ process.on('uncaughtException', err => {
 const app = express();
 registerRoutes(app);
 
+// Bind immediately so Fly/proxy see the port open before any async startup.
+const host = '0.0.0.0';
+const address = `${host}:${config.port}`;
+app.listen({ port: config.port, host }, () => {
+  logger.info('server_listening', { port: config.port, address });
+});
+
 async function startup(): Promise<void> {
   if (config.publishLoreToNearSocial) {
     try {
@@ -103,10 +110,6 @@ async function startup(): Promise<void> {
   } else {
     logger.warn('tiktok_not_configured', { reason: 'TIKTOK_CLIENT_KEY or TIKTOK_CLIENT_SECRET missing in .env' });
   }
-
-  app.listen(config.port, () => {
-    logger.info('server_listening', { port: config.port });
-  });
 
   // Worker on-demand: run when a batch is ready (no polling loop).
   loreBatcher.setOnBatchReady(() => loreWorker.scheduleRun());
