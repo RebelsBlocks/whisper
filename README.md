@@ -7,7 +7,7 @@ Event-driven backend that turns blackjack round data into AI-generated narrative
 ## On-demand only
 
 - **Round events** — `POST /events/round-ended` with a round snapshot. Validates, deduplicates, processes in background.
-- **Per-round comments** — LLM (NEAR AI) generates a short “weather + heartening” line; sends it back to blackjack backend via webhook.
+- **Per-round comments** — NEAR AI generates a short line; sends it back to blackjack backend via webhook.
 - **Lore batching** — Every N rounds → batch. Worker: LLM writes lore story → optional X notification + xAI image → publish to NEAR Social and/or X.
 - **Daily marketing (X)** — Optional daily text-only post to X at a configured time (NEAR AI). During the marketing window, lore does not post to X (no back-to-back tweets).
 
